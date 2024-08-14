@@ -16,6 +16,7 @@ namespace Services.API.Hotel.Controllers
 
         private readonly IMongoRepository<RoomEntity> _roomRepository;
 
+
         public TaskHistoryServiceController(IMongoRepository<TaskHistoryEntity> taskGenericRepository, IMongoRepository<RoomEntity> roomGenericRepository)
         {
             _taskRepository = taskGenericRepository;
@@ -44,8 +45,6 @@ namespace Services.API.Hotel.Controllers
         public async Task<IActionResult> Insert(TaskHistoryEntity task)
         {
             await _taskRepository.InsertDocument(task);
-
-            var notification = task.User.Email?.ToString();
 
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }

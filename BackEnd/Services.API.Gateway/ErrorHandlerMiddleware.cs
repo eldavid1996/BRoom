@@ -45,7 +45,7 @@ namespace Services.API.Gateway
                     }
                     else
                     {
- 
+
                         Console.WriteLine("No se encontró el claim 'username' en el token");
                     }
                 }

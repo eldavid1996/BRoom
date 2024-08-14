@@ -1,22 +1,23 @@
 {
   "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:3000",
     "HttpSettings": {
       "UseHttps": true,
       "KeyCertificate": {
         "CertificatePath": "localhost.crt",
         "KeyPath": "localhost.key"
       }
-      
+
     }
   },
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/RoomService",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Room",
@@ -31,11 +32,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/RoomService/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Room/{id}",
@@ -50,11 +51,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/RoomService/pagination",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Room/pagination",
@@ -69,11 +70,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User",
@@ -88,11 +89,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/getCuadranteFileName",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/getCuadranteFileName",
@@ -103,24 +104,12 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/photos/{photoName}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 8563
-        }
-      ],
-      "UpstreamPathTemplate": "/User/photos/{photoName}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
       "DownstreamPathTemplate": "/api/UserService/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/{id}",
@@ -135,11 +124,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/uploadPhoto",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/uploadPhoto",
@@ -154,11 +143,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/deletePhoto",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/deletePhoto",
@@ -173,11 +162,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/pagination",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/pagination",
@@ -192,11 +181,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/login",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/login",
@@ -204,11 +193,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/loggedUser",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/loggedUser",
@@ -220,11 +209,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/updatePassword",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/updatePassword",
@@ -236,11 +225,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/UserService/resetPassword/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8563
+          "Host": "security",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/User/resetPassword/{id}",
@@ -255,11 +244,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskService",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Task",
@@ -271,11 +260,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskService",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Task",
@@ -290,11 +279,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskService/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Task/{id}",
@@ -306,11 +295,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskService/pagination",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/Task/pagination",
@@ -322,11 +311,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskHistoryService",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/TaskHistory",
@@ -338,11 +327,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskHistoryService",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/TaskHistory",
@@ -357,11 +346,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskHistoryService/deleteHistory",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/TaskHistory/deleteHistory",
@@ -376,11 +365,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskHistoryService/pagination",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/TaskHistory/pagination",
@@ -395,11 +384,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/TaskHistoryService/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8562
+          "Host": "hotel",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/TaskHistory/{id}",

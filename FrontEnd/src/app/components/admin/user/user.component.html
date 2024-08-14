@@ -196,9 +196,8 @@
               <button
                 title="Deshabilitar"
                 *ngIf="
-                  (element.id !== getUserLoggedId() &&
-                    element.disabled === null) ||
-                  element.disabled === false
+                  element.id !== getUserLoggedId() &&
+                  (element.disabled === null || element.disabled === false)
                 "
                 mat-icon-button
                 (click)="disableUser(element.id, element)"

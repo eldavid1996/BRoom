@@ -44,12 +44,13 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
   titleValue = 'Tareas Activas';
   private taskSubscription: Subscription | undefined;
+  private allTaskSubscription: Subscription | undefined;
+
   private taskHistorySubscription: Subscription | undefined;
 
   pdfTasks: pdfTask | any;
 
   roomNumbers: string[] = [];
-
   automaticTaskControl: boolean;
 
   showActiveTasks: boolean = true;
@@ -57,12 +58,13 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   searchRadioButtonValue = 'Status';
 
   dataSource = new MatTableDataSource<Task>();
+
   totalTasks = 0;
   comboPages = [5, 10, 25, 50];
   displayedColumns = [
     'Status',
     'Priority',
-    'User.Name',
+    'User.Email',
     'Room.RoomNumber',
     'Observations',
     'actions',
@@ -116,6 +118,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // For Historically
     this.taskService.searchAllHistory();
     this.taskSubscription = this.taskService
       .getAllHistory()
@@ -123,22 +126,32 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         this.pdfTasks = pdfTasks;
       });
 
+    // For pass all tasks to the children tables
+    this.paginationRequest.pageSize = 99999999;
+    this.taskService.searchAllTasks(this.paginationRequest);
+    this.allTaskSubscription = this.taskService
+      .getAllTasks()
+      .subscribe((pagination: PaginationTask) => {
+        // Save all roomNumbers assigned into an array for pass it to the tables
+        this.roomNumbers = [];
+
+        pagination.data.forEach((task) => {
+          if (task.room && task.room.roomNumber) {
+            this.roomNumbers.push(task.room.roomNumber);
+          }
+        });
+        this.existingUsersAndRooms();
+      });
+
+    this.paginationRequest.pageSize = 5;
+
+    // For active tasks
     this.taskService.searchTasks(this.paginationRequest);
     this.taskSubscription = this.taskService
       .getTasks()
       .subscribe((pagination: PaginationTask) => {
         this.dataSource = new MatTableDataSource<Task>(pagination.data);
         this.totalTasks = pagination.totalRows;
-
-        // Save all roomNumbers assigned into an array for pass it to the tables
-        this.roomNumbers = [];
-        pagination.data.forEach((task) => {
-          if (task.room && task.room.roomNumber) {
-            this.roomNumbers.push(task.room.roomNumber);
-          }
-        });
-
-        this.existingUsersAndRooms();
       });
   }
 
@@ -157,7 +170,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         this.paginationFilter[0].value
       );
     }
-    if (event.value === 'User.Name') {
+    if (event.value === 'User.Email') {
       updatedPaginationFilter = this.searchByUser(
         this.paginationFilter[0].value
       );
@@ -183,7 +196,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         if (this.searchRadioButtonValue === 'Room.RoomNumber') {
           $this.paginationFilter = this.searchByRoom(event.target.value);
         }
-        if (this.searchRadioButtonValue === 'User.Name') {
+        if (this.searchRadioButtonValue === 'User.Email') {
           $this.paginationFilter = this.searchByUser(event.target.value);
         }
         this.paginationRequest.filter = $this.paginationFilter;
@@ -230,6 +243,24 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .pipe(delay(300))
       .subscribe(() => {
+        // For pass all tasks to the children tables
+        this.paginationRequest.pageSize = 99999999;
+        this.taskService.searchAllTasks(this.paginationRequest);
+        this.allTaskSubscription = this.taskService
+          .getAllTasks()
+          .subscribe((pagination: PaginationTask) => {
+            // Save all roomNumbers assigned into an array for pass it to the tables
+            this.roomNumbers = [];
+
+            pagination.data.forEach((task) => {
+              if (task.room && task.room.roomNumber) {
+                this.roomNumbers.push(task.room.roomNumber);
+              }
+            });
+            this.existingUsersAndRooms();
+          });
+
+        this.paginationRequest.pageSize = 5;
         this.taskService.searchTasks(this.paginationRequest);
         this.existingUsersAndRooms();
       });
@@ -246,6 +277,24 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .pipe(delay(200))
       .subscribe(() => {
+        // For pass all tasks to the children tables
+        this.paginationRequest.pageSize = 99999999;
+        this.taskService.searchAllTasks(this.paginationRequest);
+        this.allTaskSubscription = this.taskService
+          .getAllTasks()
+          .subscribe((pagination: PaginationTask) => {
+            // Save all roomNumbers assigned into an array for pass it to the tables
+            this.roomNumbers = [];
+
+            pagination.data.forEach((task) => {
+              if (task.room && task.room.roomNumber) {
+                this.roomNumbers.push(task.room.roomNumber);
+              }
+            });
+            this.existingUsersAndRooms();
+          });
+
+        this.paginationRequest.pageSize = 5;
         this.taskService.searchTasks(this.paginationRequest);
         this.existingUsersAndRooms();
       });
@@ -267,6 +316,24 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // And show a snackbar with the request result
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
+            // For pass all tasks to the children tables
+            this.paginationRequest.pageSize = 99999999;
+            this.taskService.searchAllTasks(this.paginationRequest);
+            this.allTaskSubscription = this.taskService
+              .getAllTasks()
+              .subscribe((pagination: PaginationTask) => {
+                // Save all roomNumbers assigned into an array for pass it to the tables
+                this.roomNumbers = [];
+
+                pagination.data.forEach((task) => {
+                  if (task.room && task.room.roomNumber) {
+                    this.roomNumbers.push(task.room.roomNumber);
+                  }
+                });
+                this.existingUsersAndRooms();
+              });
+
+            this.paginationRequest.pageSize = 5;
             this.taskService.searchTasks(this.paginationRequest);
             this.existingUsersAndRooms();
           });
@@ -290,6 +357,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // Then, get updated list tasks
             this.taskService.searchTasksFromHistory(this.paginationRequest);
             this.taskService.searchAllHistory();
+            this.paginationRequest.pageSize = 9999999999;
+            this.taskService.searchAllTasks(this.paginationRequest);
+            this.paginationRequest.pageSize = 5;
             this.existingUsersAndRooms();
           });
         }
@@ -314,6 +384,24 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
                 duration: 3000,
               });
               // Then, get updated list tasks
+              // For pass all tasks to the children tables
+              this.paginationRequest.pageSize = 99999999;
+              this.taskService.searchAllTasks(this.paginationRequest);
+              this.allTaskSubscription = this.taskService
+                .getAllTasks()
+                .subscribe((pagination: PaginationTask) => {
+                  // Save all roomNumbers assigned into an array for pass it to the tables
+                  this.roomNumbers = [];
+
+                  pagination.data.forEach((task) => {
+                    if (task.room && task.room.roomNumber) {
+                      this.roomNumbers.push(task.room.roomNumber);
+                    }
+                  });
+                  this.existingUsersAndRooms();
+                });
+
+              this.paginationRequest.pageSize = 5;
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
               this.existingUsersAndRooms();
@@ -322,6 +410,24 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
                 duration: 3000,
               });
+              // For pass all tasks to the children tables
+              this.paginationRequest.pageSize = 99999999;
+              this.taskService.searchAllTasks(this.paginationRequest);
+              this.allTaskSubscription = this.taskService
+                .getAllTasks()
+                .subscribe((pagination: PaginationTask) => {
+                  // Save all roomNumbers assigned into an array for pass it to the tables
+                  this.roomNumbers = [];
+
+                  pagination.data.forEach((task) => {
+                    if (task.room && task.room.roomNumber) {
+                      this.roomNumbers.push(task.room.roomNumber);
+                    }
+                  });
+                  this.existingUsersAndRooms();
+                });
+
+              this.paginationRequest.pageSize = 5;
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
               this.existingUsersAndRooms();
@@ -438,39 +544,79 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     dialogRef
       .afterClosed()
       .pipe(delay(300))
-      .subscribe(() => {
-        let users: User[];
-        let rooms: Room[];
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          let users: User[];
+          let rooms: Room[];
 
-        forkJoin([
-          this.userService.getAllUsers(),
-          this.roomService.getAllRooms(),
-        ]).subscribe(([usersResponse, roomsResponse]) => {
-          users = usersResponse;
-          rooms = roomsResponse;
+          forkJoin([
+            this.userService.getAllUsers(),
+            this.roomService.getAllRooms(),
+          ]).subscribe(([usersResponse, roomsResponse]) => {
+            users = usersResponse;
+            rooms = roomsResponse;
 
-          // Solo habitaciones no asignadas aún y ocupadas
-          rooms = rooms.filter((room) => {
-            return (
-              room.roomNumber !== undefined &&
-              !this.roomNumbers.includes(room.roomNumber) &&
-              room.status !== 'Vacía'
-            );
-          });
+            // Solo habitaciones no asignadas aún y ocupadas
+            rooms = rooms.filter((room) => {
+              return (
+                room.roomNumber !== undefined &&
+                !this.roomNumbers.includes(room.roomNumber) &&
+                room.status !== 'Vacía'
+              );
+            });
 
-          // Solo usuarios que no sean administradores y no esten deshabilitados
-          users = users.filter((user) => {
-            return (
-              user.roleAdmin !== undefined && !user.roleAdmin && !user.disabled
-            );
-          });
+            // Solo usuarios que no sean administradores y no esten deshabilitados
+            users = users.filter((user) => {
+              return (
+                user.roleAdmin !== undefined &&
+                !user.roleAdmin &&
+                !user.disabled
+              );
+            });
 
-          // More rooms than users
-          if (users.length < rooms.length) {
-            let index = 0;
+            // More rooms than users
+            if (users.length < rooms.length) {
+              let index = 0;
 
-            while (index < rooms.length) {
-              users.forEach((user) => {
+              while (index < rooms.length) {
+                users.forEach((user) => {
+                  if (rooms.length > 0 && index < rooms.length) {
+                    var newTask: Task = {
+                      Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
+                      User: { Id: user.id },
+                      Priority: '1',
+                      Status: 'Pendiente',
+                      Observations: '',
+                    };
+                    this.taskService.insertTask(newTask).subscribe(() => {
+                      // For pass all tasks to the children tables
+                      this.paginationRequest.pageSize = 99999999;
+                      this.taskService.searchAllTasks(this.paginationRequest);
+                      this.allTaskSubscription = this.taskService
+                        .getAllTasks()
+                        .subscribe((pagination: PaginationTask) => {
+                          // Save all roomNumbers assigned into an array for pass it to the tables
+                          this.roomNumbers = [];
+
+                          pagination.data.forEach((task) => {
+                            if (task.room && task.room.roomNumber) {
+                              this.roomNumbers.push(task.room.roomNumber);
+                            }
+                          });
+                          this.existingUsersAndRooms();
+                        });
+
+                      this.paginationRequest.pageSize = 5;
+                      this.taskService.searchTasks(this.paginationRequest);
+                      this.existingUsersAndRooms();
+                    });
+                    index++;
+                  }
+                });
+              }
+            } else {
+              // More users than rooms
+              users.forEach((user, index) => {
                 if (rooms.length > 0 && index < rooms.length) {
                   var newTask: Task = {
                     Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
@@ -480,32 +626,35 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
                     Observations: '',
                   };
                   this.taskService.insertTask(newTask).subscribe(() => {
+                    // For pass all tasks to the children tables
+                    this.paginationRequest.pageSize = 99999999;
+                    this.taskService.searchAllTasks(this.paginationRequest);
+                    this.allTaskSubscription = this.taskService
+                      .getAllTasks()
+                      .subscribe((pagination: PaginationTask) => {
+                        // Save all roomNumbers assigned into an array for pass it to the tables
+                        this.roomNumbers = [];
+
+                        pagination.data.forEach((task) => {
+                          if (task.room && task.room.roomNumber) {
+                            this.roomNumbers.push(task.room.roomNumber);
+                          }
+                        });
+                        this.existingUsersAndRooms();
+                      });
+
+                    this.paginationRequest.pageSize = 5;
                     this.taskService.searchTasks(this.paginationRequest);
                     this.existingUsersAndRooms();
                   });
-                  index++;
                 }
               });
             }
-          } else {
-            // More users than rooms
-            users.forEach((user, index) => {
-              if (rooms.length > 0 && index < rooms.length) {
-                var newTask: Task = {
-                  Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
-                  User: { Id: user.id },
-                  Priority: '1',
-                  Status: 'Pendiente',
-                  Observations: '',
-                };
-                this.taskService.insertTask(newTask).subscribe(() => {
-                  this.taskService.searchTasks(this.paginationRequest);
-                  this.existingUsersAndRooms();
-                });
-              }
+            this.snackbar.open('Tareas añadidas automáticamente', 'Cerrar', {
+              duration: 3000,
             });
-          }
-        });
+          });
+        }
       });
   }
 
@@ -542,6 +691,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       } else {
         this.automaticTaskControl = true;
       }
+      if (this.dataSource.data.length > 0) {
+        this.automaticTaskControl = false;
+      }
     });
   }
 
@@ -559,8 +711,26 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // And show a snackbar with the request result
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
+            // For pass all tasks to the children tables
+            this.paginationRequest.pageSize = 99999999;
+            this.taskService.searchAllTasks(this.paginationRequest);
+            this.allTaskSubscription = this.taskService
+              .getAllTasks()
+              .subscribe((pagination: PaginationTask) => {
+                // Save all roomNumbers assigned into an array for pass it to the tables
+                this.roomNumbers = [];
+
+                pagination.data.forEach((task) => {
+                  if (task.room && task.room.roomNumber) {
+                    this.roomNumbers.push(task.room.roomNumber);
+                  }
+                });
+                this.existingUsersAndRooms();
+              });
+
+            this.paginationRequest.pageSize = 5;
             this.taskService.searchTasks(this.paginationRequest);
-            this.existingUsersAndRooms();
+            this.automaticTaskControl = true;
           });
         }
       });

@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System.Text;
 
 namespace Services.API.Gateway
-{   
+{
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -47,11 +48,11 @@ namespace Services.API.Gateway
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
             app.UseCors("CorsRule");
+            app.UseStaticFiles();
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseRouting();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseAuthentication(); // for signal
             app.UseAuthorization(); // for jwt
 
@@ -62,6 +63,6 @@ namespace Services.API.Gateway
             });
 
             app.UseOcelot();
-        }   
+        }
     }
 }

@@ -1,39 +1,11 @@
 {
   "Version": 1,
-  "Hash": "8t3uBSzVEqyXhA8qWANZZJ2f6NkvCC0W5leFXAByvM0=",
+  "Hash": "8MSsFZOf0ty8ZK6CIKrpusLCbE96GCDiFc+3CsrCHMU=",
   "Source": "Services.API.Security",
   "BasePath": "_content/Services.API.Security",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [
-    {
-      "Name": "Services.API.Security\\wwwroot",
-      "Source": "Services.API.Security",
-      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
-      "BasePath": "_content/Services.API.Security",
-      "Pattern": "**"
-    }
-  ],
-  "Assets": [
-    {
-      "Identity": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
-      "SourceId": "Services.API.Security",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
-      "BasePath": "_content/Services.API.Security",
-      "RelativePath": "photos/cuadrante.txt",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\photos\\cuadrante.txt"
-    }
-  ]
+  "DiscoveryPatterns": [],
+  "Assets": []
 }

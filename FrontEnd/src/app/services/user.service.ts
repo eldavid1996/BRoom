@@ -32,7 +32,7 @@ export class UserService {
       });
   }
 
-  // Get all users 
+  // Get all users
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + 'User');
   }
@@ -79,14 +79,16 @@ export class UserService {
   }
 
   getPhoto(urlImage: string): string {
-    return this.baseUrl + 'User/photos/' + urlImage;
+    return this.baseUrl + 'photos/' + urlImage;
   }
 
   getUserById(id: string) {
     return this.http.get<User>(this.baseUrl + 'User/' + id);
   }
-  
+
   getCuadranteFileName() {
-    return this.http.get(this.baseUrl + 'User/getCuadranteFileName', {responseType: 'text'});
+    return this.http.get(this.baseUrl + 'User/getCuadranteFileName', {
+      responseType: 'text',
+    });
   }
 }

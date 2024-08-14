@@ -40,7 +40,6 @@ namespace Services.API.Security.Core.Application
             public string? urlImage { get; set; }
             public bool? Disabled { get; set; }
 
-
         }
 
         public class UserUpdateHandler : IRequestHandler<UserUpdateCommand, RegisteredUserDto>
@@ -81,11 +80,11 @@ namespace Services.API.Security.Core.Application
                 registeredUser.Surname = request.Surname;
                 registeredUser.DNI = request.DNI;
                 registeredUser.RoleAdmin = (bool)request.RoleAdmin;
+                registeredUser.Disabled = (bool)request.Disabled;
                 registeredUser.BirthDate = request.BirthDate;
                 registeredUser.City = request.City;
                 registeredUser.CP = request.CP;
                 registeredUser.urlImage = request.urlImage;
-                registeredUser.Disabled = (bool)request.Disabled;
 
                 var result = await _userManager.UpdateAsync(registeredUser);
 

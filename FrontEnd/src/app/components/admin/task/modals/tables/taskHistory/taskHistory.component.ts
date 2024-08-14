@@ -56,7 +56,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   displayedColumns = [
     'Status',
     'Priority',
-    'User.Name',
+    'User.Email',
     'Room.RoomNumber',
     'CreatedDate',
     'actions',
@@ -141,7 +141,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
         this.paginationFilter[0].value
       );
     }
-    if (event.value === 'User.Name') {
+    if (event.value === 'User.Email') {
       updatedPaginationFilter = this.searchByUser(
         this.paginationFilter[0].value
       );
@@ -184,11 +184,14 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
         if (this.searchRadioButtonValue === 'Room.RoomNumber') {
           $this.paginationFilter = this.searchByRoom(event.target.value);
         }
-        if (this.searchRadioButtonValue === 'User.Name') {
+        if (this.searchRadioButtonValue === 'User.Email') {
           $this.paginationFilter = this.searchByUser(event.target.value);
         }
         if (this.searchRadioButtonValue === 'CreatedDate') {
-          $this.paginationFilter = this.searchByDate(event.target.value);
+          var selectedDate = new Date(event.target.value);
+          selectedDate.setDate(selectedDate.getDate() + 1);
+
+          $this.paginationFilter = this.searchByDate(selectedDate.toISOString());
         }
         this.paginationRequest.filter = $this.paginationFilter;
         $this.taskService.searchTasksFromHistory(this.paginationRequest);
