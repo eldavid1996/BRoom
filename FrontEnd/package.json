@@ -2,9 +2,8 @@
   "name": "front-end",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "dev": "ng serve",
+    "build": "ng build --output-path=docs --base-href=/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:FrontEnd": "node dist/front-end/server/server.mjs"
@@ -38,5 +37,11 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0"
+  },
+  "browser": {
+    "http": false,
+    "https": false,
+    "url": false,
+    "util": false
   }
 }
