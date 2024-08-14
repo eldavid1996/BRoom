@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "ng serve",
-    "build": "ng build --configuration production --output-path docs --base-href https://eldavid1996.github.io/BRoom/",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:FrontEnd": "node dist/front-end/server/server.mjs"
