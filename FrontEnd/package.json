@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "ng serve",
-    "build": "ng build --output-path=docs --base-href=/",
+    "build": "ng build --configuration production --output-path docs --base-href https://eldavid1996.github.io/BRoom/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:FrontEnd": "node dist/front-end/server/server.mjs"
@@ -36,7 +36,8 @@
     "@angular/cli": "^17.3.7",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
-    "@types/node": "^18.18.0"
+    "@types/node": "^18.18.0",
+    "angular-cli-ghpages": "^2.0.1"
   },
   "browser": {
     "http": false,
