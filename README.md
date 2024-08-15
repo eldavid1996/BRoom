@@ -1,6 +1,7 @@
 # 🧹 BROOM
-![broom1](https://github.com/user-attachments/assets/8a42213b-b615-4107-9d5c-c1a954bfaf6d)
-![broom2](https://github.com/user-attachments/assets/5c65b305-98ea-470b-b9de-22b59433f2f3)
+![broom2](https://github.com/user-attachments/assets/042ec568-7dac-416e-9d20-e987d6d3de20)
+![broom3](https://github.com/user-attachments/assets/9e8a4123-bafe-470e-84b2-6ca06f737912)
+
 
 
 # 🦄 C# ASP.NET CORE 8 WEB API + ANGULAR 17
